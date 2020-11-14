@@ -1,5 +1,6 @@
 use crate::student::Students;
 use std::io;
+use std::process;
 
 pub fn menu(students: &mut Students) {
     // Ask for which order to sort.
@@ -26,7 +27,10 @@ pub fn menu(students: &mut Students) {
         match choice {
             1 => sort_by_name(students),
             2 => sort_by_total(students),
-            3 => return,
+            3 => {
+                println!("Ok, Quitting..." );
+                process::exit(0);
+            },
             _ => println!("Unexpected choice! Try Again!!"),
         };
     }
