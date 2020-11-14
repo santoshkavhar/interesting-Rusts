@@ -1,4 +1,5 @@
 use std::io;
+use std::iter;
 
 type Marks = u16;
 
@@ -66,35 +67,77 @@ fn get_ith_student_details(student_number: u8) -> Student {
     println!("{:?}", student);
     println!("-----------" );
 
+    let mut subject_number = 1;
+
     loop {
-        println!("Enter Maths marks for Student number {}: ", student_number);//, Physics and English : ");
-        let mut maths_marks = String::new();
-        io::stdin().read_line(&mut maths_marks).expect("Failed to read maths marks!!");
+
+        let subject_name = match subject_number{
+            1 => "Maths",
+            2 => "Physics",
+            3 => "English",
+            _ => "Unknown Subject"
+        };
+
+        println!("Enter {} marks for Student number {}(range 1 to 100): ", subject_name, student_number);//, Physics and English : ");
+        let mut subject_mark = String::new();
+        io::stdin().read_line(&mut subject_mark).expect("Failed to read marks!!");
     
-        let maths_marks: u16 = match maths_marks.trim().parse() {
-            Ok(num) => num,
+        let subject_mark: u16 = match subject_mark.trim().parse() {
+            Ok(num) => if num >= 0 && num <= 100{
+                num
+            } else {
+                println!("Please check your range..." );
+                continue
+            },
             Err(_) => continue,
         };
 
-        student.subjects.maths = maths_marks;
-        break;
+        match subject_number{
+            1 => student.subjects.maths =  subject_mark,
+            2 => student.subjects.physics =  subject_mark,
+            3 => student.subjects.english =  subject_mark,
+            _ => println!("Unknown Subject"),
+        };
 
+        subject_number += 1;
+        if subject_number == 4 {
+            break;
+        }
     }
 
-
-    println!("-----------" );
-    println!("{:?}", student);
-    println!("-----------" );
+    student.total = calculate_total_marks(&student.subjects);
 
     student
 
 }
 
+fn calculate_total_marks(subjects: &Subjects) -> u16 {
+    let mut total_marks : u16 = 0;
+    for subject_mark in (*subjects).marks(){
+        total_marks += subject_mark;
+    }
+
+    println!("total: {}",total_marks );
+    
+    //total_marks = subjects.maths + subjects.physics + subjects.english;
+    total_marks
+}
+
+
+impl Subjects {
+    fn marks(&self) -> impl Iterator<Item = u16> {
+        let m = iter::once(self.maths);
+        let p = iter::once(self.physics);
+        let e = iter::once(self.english);
+        m.chain(p).chain(e)
+    }
+}
+
+
+
 fn main() {
     
     let no_of_students = get_input_no_of_students();
-    
-    //println!("{}", no_of_students );
 
     let students = create_students(no_of_students);
 
