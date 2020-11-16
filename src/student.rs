@@ -24,6 +24,12 @@ impl Student {
             total: 0,
         }
     }
+
+    fn calculate_total_marks(&mut self) {
+        for subject_mark in (self.subjects).marks() {
+            self.total += subject_mark;
+        }
+    }
 }
 
 pub fn get_no_of_students() -> u8 {
@@ -74,9 +80,9 @@ fn get_ith_student_details(student_number: u8) -> Student {
 
     let mut student = Student::new(name);
 
-    //println!("-----------");
-    //println!("{:?}", student);
-    //println!("-----------");
+    // println!("-----------
+    //          {:?}
+    //          -----------, student);
 
     let mut subject_number = 1;
 
@@ -89,9 +95,9 @@ fn get_ith_student_details(student_number: u8) -> Student {
         };
 
         println!(
-            "Enter {} marks for Student number {}(range 1 to 100): ",
+            "Enter {} marks for Student number {}(range 0 to 100): ",
             subject_name, student_number
-        ); //, physics and english : ");
+        );
         let mut subject_mark = String::new();
         io::stdin()
             .read_line(&mut subject_mark)
@@ -125,7 +131,7 @@ fn get_ith_student_details(student_number: u8) -> Student {
         }
     }
 
-    student.total = subject::calculate_total_marks(&student.subjects);
-
+    student.calculate_total_marks();
+   
     student
 }

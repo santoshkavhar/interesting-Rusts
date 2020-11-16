@@ -17,14 +17,3 @@ impl Subjects {
         m.chain(p).chain(e)
     }
 }
-
-pub fn calculate_total_marks(subjects: &Subjects) -> u16 {
-    let mut total_marks: u16 = 0;
-    for subject_mark in (*subjects).marks() {
-        total_marks += subject_mark;
-    }
-
-    // println!("total: {}", total_marks);
-
-    total_marks
-}

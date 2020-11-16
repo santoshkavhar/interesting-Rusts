@@ -9,9 +9,9 @@ pub fn menu(students: &mut Students) {
     loop {
         println!(
             "Please enter your choice of sorting:
-        \n1.Sort by name
-        \n2.Sort by total marks.
-        \n3.Quit."
+        1.Sort by name
+        2.Sort by total marks.
+        3.Quit."
         );
 
         let mut choice = String::new();
@@ -28,9 +28,9 @@ pub fn menu(students: &mut Students) {
             1 => sort_by_name(students),
             2 => sort_by_total(students),
             3 => {
-                println!("Ok, Quitting..." );
+                println!("Ok, Quitting...");
                 process::exit(0);
-            },
+            }
             _ => println!("Unexpected choice! Try Again!!"),
         };
     }
