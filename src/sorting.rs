@@ -2,46 +2,52 @@ use crate::student::Students;
 use std::io;
 use std::process;
 
-pub fn menu(students: &mut Students) {
-    // Ask for which order to sort.
+pub trait Sort {
+    fn menu(&mut self);
+    fn sort_by_name(&mut self);
+    fn sort_by_total(&mut self);
+}
 
-    // Ask if want to continue
-    loop {
-        println!(
-            "Please enter your choice of sorting:
-        1.Sort by name
-        2.Sort by total marks.
-        3.Quit."
-        );
+impl Sort for Students{
+    fn menu(&mut self) {
 
-        let mut choice = String::new();
-        io::stdin()
-            .read_line(&mut choice)
-            .expect("Couldn't get user choice of sorting!!");
-
-        let choice: u8 = match choice.trim().parse() {
-            Ok(num) => num,
-            Err(_) => continue,
-        };
-
-        match choice {
-            1 => sort_by_name(students),
-            2 => sort_by_total(students),
-            3 => {
-                println!("Ok, Quitting...");
-                process::exit(0);
-            }
-            _ => println!("Unexpected choice! Try Again!!"),
-        };
+        loop {
+            println!(
+                "Please enter your choice of sorting:
+            1.Sort by name
+            2.Sort by total marks.
+            3.Quit."
+            );
+    
+            let mut choice = String::new();
+            io::stdin()
+                .read_line(&mut choice)
+                .expect("Couldn't get user choice of sorting!!");
+    
+            let choice: u8 = match choice.trim().parse() {
+                Ok(num) => num,
+                Err(_) => continue,
+            };
+    
+            match choice {
+                1 => self.sort_by_name(),
+                2 => self.sort_by_total(),
+                3 => {
+                    println!("Ok, Quitting...");
+                    process::exit(0);
+                }
+                _ => println!("Unexpected choice! Try Again!!"),
+            };
+        }
     }
-}
-
-fn sort_by_name(students: &mut Students) {
-    students.sort();
-    println!("{:#?}", students);
-}
-
-fn sort_by_total(students: &mut Students) {
-    students.sort_by(|a, b| b.total.cmp(&a.total));
-    println!("{:#?}", students);
+    
+    fn sort_by_name(&mut self) {
+        self.sort();
+        println!("{:#?}", self);
+    }
+    
+    fn sort_by_total(&mut self) {
+        self.sort_by(|a, b| b.total.cmp(&a.total));
+        println!("{:#?}", self);
+    }
 }
