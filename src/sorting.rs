@@ -4,8 +4,12 @@ use std::process;
 
 pub trait Sort {
     fn menu(&mut self);
-    fn sort_by_name(&mut self);
-    fn sort_by_total(&mut self);
+    fn sort_(&mut self, sort_kind : SortBy);
+}
+
+pub enum SortBy{
+    Name,
+    Total,
 }
 
 impl Sort for Students {
@@ -29,8 +33,8 @@ impl Sort for Students {
             };
 
             match choice {
-                1 => self.sort_by_name(),
-                2 => self.sort_by_total(),
+                1 => self.sort_(SortBy::Name),
+                2 => self.sort_(SortBy::Total),
                 3 => {
                     println!("Ok, Quitting...");
                     process::exit(0);
@@ -40,13 +44,11 @@ impl Sort for Students {
         }
     }
 
-    fn sort_by_name(&mut self) {
-        self.sort();
-        println!("{:#?}", self);
-    }
-
-    fn sort_by_total(&mut self) {
-        self.sort_by(|a, b| b.total.cmp(&a.total));
+    fn sort_(&mut self, sort_kind : SortBy) {
+        match sort_kind{
+            SortBy::Name =>  self.sort(),
+            SortBy::Total => self.sort_by(|a, b| b.total.cmp(&a.total)),
+        }
         println!("{:#?}", self);
     }
 }
