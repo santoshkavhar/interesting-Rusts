@@ -1,6 +1,5 @@
 use crate::student;
-use std::io;
-use std::process;
+use std::{io, process};
 
 pub trait Sort {
     fn menu(&mut self);
