@@ -1,10 +1,9 @@
-use crate::student::Student;
-use crate::student::Students;
+use crate::student;
 use std::io;
 use std::process;
 
 // Associated functions
-impl Student {
+impl student::Student {
     pub fn get_no_of_students() -> u8 {
         // Not Allowed here
         // let mut no_of_students = String::new();
@@ -32,17 +31,17 @@ impl Student {
         }
     }
 
-    pub fn create_students(no_of_students: u8) -> Students {
-        let mut students = Students::new();
+    pub fn create_students(no_of_students: u8) -> student::Students {
+        let mut students = student::Students::new();
         for i in 0..no_of_students {
-            let student = Student::get_ith_student_details(i + 1);
+            let student = student::Student::get_ith_student_details(i + 1);
             //println!("{:?}", student);
             students.push(student);
         }
         students
     }
 
-    fn get_ith_student_details(student_number: u8) -> Student {
+    fn get_ith_student_details(student_number: u8) -> student::Student {
         println!("Enter name for Student number {}: ", student_number);
         let mut name = String::new();
 
@@ -51,7 +50,7 @@ impl Student {
             .expect("Failed to read name for Student!!");
         let name: String = String::from(name.trim());
 
-        let mut student = Student::new(name);
+        let mut student = student::Student::new(name);
 
         // println!("-----------
         //          {:?}

@@ -1,4 +1,4 @@
-use crate::student::Students;
+use crate::student;
 use std::io;
 use std::process;
 
@@ -12,7 +12,7 @@ pub enum SortBy{
     Total,
 }
 
-impl Sort for Students {
+impl Sort for student::Students {
     fn menu(&mut self) {
         loop {
             println!(
