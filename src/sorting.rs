@@ -45,7 +45,7 @@ impl Sort for student::Students {
 
     fn sort_(&mut self, sort_kind : SortBy) {
         match sort_kind{
-            SortBy::Name =>  self.sort(),
+            SortBy::Name =>  self.sort_by(|a, b| a.name.cmp(&b.name)),
             SortBy::Total => self.sort_by(|a, b| b.total.cmp(&a.total)),
         }
         println!("{:#?}", self);

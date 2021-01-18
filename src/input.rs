@@ -89,12 +89,7 @@ impl student::Student {
                 }
             };
 
-            match subject_number {
-                1 => student.subjects.maths = subject_mark,
-                2 => student.subjects.physics = subject_mark,
-                3 => student.subjects.english = subject_mark,
-                _ => println!("Unknown Subject"),
-            };
+            student.subjects.insert(subject_name.to_string(), subject_mark);
 
             subject_number += 1;
             if subject_number == 4 {

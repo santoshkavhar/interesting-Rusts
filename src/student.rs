@@ -1,8 +1,10 @@
 mod subject;
+use std::collections::HashMap;
 
 pub type Students = Vec<Student>;
 
-#[derive(Debug, Ord, PartialOrd, Eq, PartialEq)]
+// TODO: implement Ord and PartialOrd for HashMap
+#[derive(Debug, Eq, PartialEq)]
 pub struct Student {
     pub name: String,
     pub subjects: subject::Subjects,
@@ -11,21 +13,16 @@ pub struct Student {
 
 impl Student {
     pub fn new(name: String) -> Self {
-        let subjects = subject::Subjects {
-            maths: 0,
-            physics: 0,
-            english: 0,
-        };
         Student {
             name,
-            subjects,
+            subjects:HashMap::new(),
             total: 0,
         }
     }
 
     pub fn calculate_total_marks(&mut self) {
-        for subject_mark in (self.subjects).marks() {
-            self.total += subject_mark;
-        }
+            for (_, value) in &self.subjects {
+                self.total += value;
+            }
     }
 }
