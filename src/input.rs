@@ -97,7 +97,7 @@ impl student::Student {
             }
         }
 
-        student.calculate_total_marks();
+        student.calculate_total_marks_and_class();
 
         student
     }
