@@ -9,5 +9,4 @@ pub enum Class{
     Distinction,
     FirstClass,
     SecondClass,
-    NoClass,
 }

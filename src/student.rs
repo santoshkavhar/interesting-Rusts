@@ -10,7 +10,7 @@ pub struct Student {
     pub name: String,
     pub subjects: subject::Subjects,
     pub total: subject::Marks,
-    pub class: subject::Class,
+    pub class: Option<subject::Class>,
 }
 
 impl Student {
@@ -19,7 +19,7 @@ impl Student {
             name,
             subjects:HashMap::new(),
             total: 0,
-            class: subject::Class::NoClass,
+            class: None,
         }
     }
 
@@ -34,15 +34,15 @@ impl Student {
 
 }
 
-fn compute_class(total: subject::Marks, total_marks: subject::Marks) -> subject::Class{
+fn compute_class(total: subject::Marks, total_marks: subject::Marks) -> Option<subject::Class>{
     let class: f64 = (total as f64/total_marks as f64) * 100.0;
 
     if class >= 80.0 {
-        return subject::Class::Distinction
+        return Some(subject::Class::Distinction)
     } else if class >= 60.0 && class < 80.0 {
-        return subject::Class::FirstClass
+        return Some(subject::Class::FirstClass)
     } else if class >= 40.0 && class < 60.0 {
-        return subject::Class::SecondClass
+        return Some(subject::Class::SecondClass)
     }
-    subject::Class::NoClass
+    None
 }
