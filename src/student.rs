@@ -1,4 +1,5 @@
 mod subject;
+mod class;
 use std::collections::HashMap;
 
 pub type Students = Vec<Student>;
@@ -10,7 +11,7 @@ pub struct Student {
     pub name: String,
     pub subjects: subject::Subjects,
     pub total: subject::Marks,
-    pub class: Option<subject::Class>,
+    pub class: Option<class::Class>,
 }
 
 impl Student {
@@ -34,15 +35,15 @@ impl Student {
 
 }
 
-fn compute_class(total: subject::Marks, total_marks: subject::Marks) -> Option<subject::Class>{
-    let class: f64 = (total as f64/total_marks as f64) * 100.0;
+fn compute_class(total: subject::Marks, total_marks: subject::Marks) -> Option<class::Class>{
+    let percent: f64 = (total as f64/total_marks as f64) * 100.0;
 
-    if class >= 80.0 {
-        return Some(subject::Class::Distinction)
-    } else if class >= 60.0 && class < 80.0 {
-        return Some(subject::Class::FirstClass)
-    } else if class >= 40.0 && class < 60.0 {
-        return Some(subject::Class::SecondClass)
+    if percent >= 80.0 {
+        return Some(class::Class::Distinction)
+    } else if percent >= 60.0 && percent < 80.0 {
+        return Some(class::Class::FirstClass)
+    } else if percent >= 40.0 && percent < 60.0 {
+        return Some(class::Class::SecondClass)
     }
     None
 }
