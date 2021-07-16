@@ -30,20 +30,8 @@ impl Student {
             self.total += value;
         }
         // Compute class
-        self.class = compute_class(self.total, (self.subjects.len() * 100) as u16)
+        self.class = class::compute_class(self.total, (self.subjects.len() * 100) as u16)
     }
 
 }
 
-fn compute_class(total: subject::Marks, total_marks: subject::Marks) -> Option<class::Class>{
-    let percent: f64 = (total as f64/total_marks as f64) * 100.0;
-
-    if percent >= 80.0 {
-        return Some(class::Class::Distinction)
-    } else if percent >= 60.0 && percent < 80.0 {
-        return Some(class::Class::FirstClass)
-    } else if percent >= 40.0 && percent < 60.0 {
-        return Some(class::Class::SecondClass)
-    }
-    None
-}
