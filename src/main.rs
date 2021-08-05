@@ -3,6 +3,7 @@ mod sorting;
 mod student;
 use crate::sorting::Sort;
 
+// TODO: Better Error handling
 fn main() {
     let no_of_students = student::Student::get_no_of_students();
 
@@ -10,5 +11,5 @@ fn main() {
 
     //println!("{:?}", students);
 
-    students.menu();
+    students.sorting_menu();
 }

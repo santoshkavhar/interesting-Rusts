@@ -2,7 +2,7 @@ use crate::student;
 use std::{io, process};
 
 pub trait Sort {
-    fn menu(&mut self);
+    fn sorting_menu(&mut self);
     fn sort_(&mut self, sort_kind : SortBy);
 }
 
@@ -12,7 +12,7 @@ pub enum SortBy{
 }
 
 impl Sort for student::Students {
-    fn menu(&mut self) {
+    fn sorting_menu(&mut self) {
         loop {
             println!(
                 "Please enter your choice of sorting:

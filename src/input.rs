@@ -22,6 +22,7 @@ impl student::Student {
                 Err(_) => continue,
             };
 
+            // TODO: set values from a config.yml
             if no_of_students > 0 && no_of_students < 101 {
                 return no_of_students;
             } else if no_of_students == 0 {
@@ -34,6 +35,7 @@ impl student::Student {
     pub fn create_students(no_of_students: u8) -> student::Students {
         let mut students = student::Students::new();
         for i in 0..no_of_students {
+            // TOD0: Get from CSV
             let student = report::report_generation::get_ith_student_details(i + 1);
             //println!("{:?}", student);
             students.push(student);

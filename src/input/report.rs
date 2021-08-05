@@ -20,6 +20,7 @@ pub mod report_generation{
         let mut subject_number = 1;
 
         loop {
+            // TODO: Get subjects from config
             let subject_name = match subject_number {
                 1 => "maths",
                 2 => "physics",
