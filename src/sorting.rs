@@ -2,17 +2,17 @@ use crate::student;
 use std::{io, process};
 
 pub trait Sort {
-    fn sorting_menu(&mut self);
-    fn sort_(&mut self, sort_kind : SortBy);
+    fn sorting_menu(&mut self) -> Result<(), String>;
+    fn sort_(&mut self, sort_kind: SortBy);
 }
 
-pub enum SortBy{
+pub enum SortBy {
     Name,
     Total,
 }
 
 impl Sort for student::Students {
-    fn sorting_menu(&mut self) {
+    fn sorting_menu(&mut self) -> Result<(), String> {
         loop {
             println!(
                 "Please enter your choice of sorting:
@@ -22,9 +22,14 @@ impl Sort for student::Students {
             );
 
             let mut choice = String::new();
-            io::stdin()
-                .read_line(&mut choice)
-                .expect("Couldn't get user choice of sorting!!");
+            match io::stdin().read_line(&mut choice) {
+                Ok(_) => {}
+                Err(error) => {
+                    return Err(
+                        format!("Couldn't get user choice of sorting! Err: {}", error).to_string(),
+                    )
+                }
+            }
 
             let choice: u8 = match choice.trim().parse() {
                 Ok(num) => num,
@@ -43,9 +48,9 @@ impl Sort for student::Students {
         }
     }
 
-    fn sort_(&mut self, sort_kind : SortBy) {
-        match sort_kind{
-            SortBy::Name =>  self.sort_by(|a, b| a.name.cmp(&b.name)),
+    fn sort_(&mut self, sort_kind: SortBy) {
+        match sort_kind {
+            SortBy::Name => self.sort_by(|a, b| a.name.cmp(&b.name)),
             SortBy::Total => self.sort_by(|a, b| b.total.cmp(&a.total)),
         }
         println!("{:#?}", self);

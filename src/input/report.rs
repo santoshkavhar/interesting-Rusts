@@ -1,8 +1,8 @@
-pub mod report_generation{
+pub mod report_generation {
     use crate::student;
     use std::io;
 
-    pub fn get_ith_student_details(student_number: u8) -> student::Student {
+    pub fn get_ith_student_details(student_number: u8) -> Result<student::Student, String> {
         println!("Enter name for Student number {}: ", student_number);
         let mut name = String::new();
 
@@ -52,7 +52,9 @@ pub mod report_generation{
                 }
             };
 
-            student.subjects.insert(subject_name.to_string(), subject_mark);
+            student
+                .subjects
+                .insert(subject_name.to_string(), subject_mark);
 
             subject_number += 1;
             if subject_number == 4 {
@@ -62,6 +64,6 @@ pub mod report_generation{
 
         student.calculate_total_marks_and_class();
 
-        student
+        Ok(student)
     }
 }

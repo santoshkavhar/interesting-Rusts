@@ -1,9 +1,8 @@
-mod subject;
 mod class;
+mod subject;
 use std::collections::HashMap;
 
 pub type Students = Vec<Student>;
-
 
 // TODO: implement Ord and PartialOrd for HashMap
 #[derive(Debug, Eq, PartialEq)]
@@ -18,7 +17,7 @@ impl Student {
     pub fn new(name: String) -> Self {
         Student {
             name,
-            subjects:HashMap::new(),
+            subjects: HashMap::new(),
             total: 0,
             class: None,
         }
@@ -32,6 +31,4 @@ impl Student {
         // Compute class
         self.class = class::compute_class(self.total, (self.subjects.len() * 100) as u16)
     }
-
 }
-
